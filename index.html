@@ -29,7 +29,7 @@ body{
 .center-text{
     position:absolute;
     top:20%;
-    right:75%;
+    right:5%;
     max-width:500px;
     text-align:right;
 
@@ -171,7 +171,8 @@ Come, let's learn the art of professional circuit designing!
 <option>5 Weeks</option>
 </select>
 
-<button type="submit" id="submitBtn">Register Now</button>
+<button type="submit">Register Now</button>
+
 </form>
 </div>
 
@@ -180,44 +181,27 @@ Training by<br>
 <span>Shubham Bhatt</span>
 </div>
 
- <script>
+<script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbwx9baEhmVUOEdQ6J40ljkzyw3PvM_gK4J-eOmX8bwbQTLBnkX25Uk7LqIh1pc2zyLX/exec";
+const scriptURL="https://script.google.com/macros/s/AKfycbxe0bVBd1vEOvArrHFByUtG_qhQjaWdubR3kXiv4jjQ1ckZjwrmaKIDr-O8aGMUqkpq/exec";
 
-const form = document.getElementById("regForm");
-const btn = document.getElementById("submitBtn");
-
-form.addEventListener("submit", function(e){
+document.getElementById("myForm").addEventListener("submit",e=>{
 e.preventDefault();
-
-btn.disabled = true;
-btn.innerHTML = "Submitting...";
 
 fetch(scriptURL,{
 method:"POST",
-body:JSON.stringify({
-name:document.getElementById("name").value,
-email:document.getElementById("email").value,
-phone:document.getElementById("phone").value,
-college:document.getElementById("college").value,
-duration:document.getElementById("duration").value
+body:new FormData(e.target)
 })
+.then(()=>{
+alert("✅ Registration Successful!");
+document.getElementById("myForm").reset();
 })
-.then(res=>{
-document.getElementById("msg").innerHTML="✅ Registration Successful";
-form.reset();
-btn.innerHTML="Registered ✔";
-})
-.catch(err=>{
-document.getElementById("msg").innerHTML="❌ Error submitting form";
-btn.disabled=false;
-btn.innerHTML="Register Now";
+.catch(()=>{
+alert("❌ Error submitting form");
 });
-
 });
 
 </script>
 
 </body>
-
 </html>
